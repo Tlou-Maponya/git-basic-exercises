@@ -1,0 +1,673 @@
+GIT BASIC EXERCISES: Creating and managing your own repo
+
+Your initial commit
+
+	1. $ mkdir git-basic-exercises
+	2. $ cd git-basic-exercises
+	3. $ ls -a
+			. ..
+	4. $ git init
+			Initialized empty Git repository in /home/umuzi-tlou/Documents/git-basic-exercises/.git/
+	$ ls -a
+			. .. .git
+	5. $ git status
+			On branch master
+
+			No commits yet
+
+			nothing to commit (create/copy files and use "git add" to track)
+
+	6. $ touch README.md
+	$ ls -a
+		.  ..  .git  README.md
+	$ git status
+			On branch master
+
+			No commits yet
+
+			Untracked files:
+				(use "git add <file>..." to include in what will be committed)
+			
+				README.md
+
+			nothing added to commit but untracked files present (use "git add" to track)
+	7. $ git log
+			fatal: your current branch 'master' does not have any commits yet
+	8. $ git add README.md 
+	9. $ git status
+			On branch master
+
+			No commits yet
+
+			Changes to be committed:
+				(use "git rm --cached <file>..." to unstage)
+
+			new file:   README.md
+	10 $ git rm --cached README.md
+			rm 'README.md'
+	$ git status
+			On branch master
+
+		No commits yet
+
+		Untracked files:
+		(use "git add <file>..." to include in what will be committed)
+
+			README.md(RED)
+
+		nothing added to commit but untracked files present (use "git add" to track)
+	11 $ git commit -m "woop first commit"
+			[master (root-commit) 1954489] woop first commit
+			1 file changed, 0 insertions(+), 0 deletions(-)
+			create mode 100644 README.md
+
+	12 $ git log
+			[master (root-commit) 1954489] woop first commit
+			1 file changed, 0 insertions(+), 0 deletions(-)
+			create mode 100644 README.md
+
+more commits!
+
+	1. $ nano README.md
+	2. $ cat README.md	
+			Some Cool Stuff
+	3. $ git status
+		On branch master
+		Changes not staged for commit:
+			(use "git add <file>..." to update what will be committed)
+			(use "git checkout -- <file>..." to discard changes in working directory)
+
+				modified:   README.md (RED)
+
+		no changes added to commit (use "git add" and/or "git commit -a")
+
+check this out
+
+	1. $ git log
+			commit 732973d378967afc779ca7f1ad984ee9cf808537 (HEAD -> master)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:04:33 2019 +0200
+
+				3rd commit
+
+			commit 66a48193cb63cc94a56c685a2213412f9fb9fc0d
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:03:28 2019 +0200
+
+				woop 2nd commit
+
+			commit 1954489341458109c658faea9d316cc1836fa391
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 14:55:11 2019 +0200
+
+				woop first commit
+
+	3. $ git checkout 66a48193cb63cc94a56c685a2213412f9fb9fc0d
+			Note: checking out '66a48193cb63cc94a56c685a2213412f9fb9fc0d'.
+
+			You are in 'detached HEAD' state. You can look around, make experimental
+			changes and commit them, and you can discard any commits you make in this
+			state without impacting any branches by performing another checkout.
+
+			If you want to create a new branch to retain commits you create, you may
+			do so (now or later) by using -b with the checkout command again. Example:
+
+				git checkout -b <new-branch-name>
+
+			HEAD is now at 66a4819 woop 2nd commit
+	4. $ cat README.md
+			Some Cool Stuff
+	5. $ git checkout master
+			Previous HEAD position was 66a4819 woop 2nd commit
+			Switched to branch 'master'
+	6. cat README.md 
+			Some Cool Stuff Is Really In Here
+
+
+
+branching
+
+	1. $  git branch 
+		  	Branchie
+			* master
+	2. $ git branch milkshake-flavours
+	3. $ git branch
+			Branchie
+			* master
+  			milkshake-flavours
+
+	5. $ git checkout milkshake-flavours
+			Switched to branch 'milkshake-flavours'
+	6. $ git status
+			On branch milkshake-flavours
+			Untracked files:
+			(use "git add <file>..." to include in what will be committed)
+
+				milkshake.md
+
+			nothing added to commit but untracked files present (use "git add" to track)
+	7. $ git commit -m "added initial flavours"
+			On branch milkshake-flavours
+			nothing to commit, working tree clean
+
+	8. $ git log
+			commit 5d5b0d20c940ac3f940a77eb238735c564bce94b (HEAD -> milkshake-flavours)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:05:48 2019 +0200
+
+				added initial flavours
+
+			commit 732973d378967afc779ca7f1ad984ee9cf808537 (master, Branchie)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:04:33 2019 +0200
+
+				3rd commit
+
+			commit 66a48193cb63cc94a56c685a2213412f9fb9fc0d
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:03:28 2019 +0200
+
+				woop 2nd commit
+
+			commit 1954489341458109c658faea9d316cc1836fa391
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 14:55:11 2019 +0200
+
+				woop first commit
+
+	10. $ git log
+			commit 732973d378967afc779ca7f1ad984ee9cf808537 (HEAD -> history, master, Branchie)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:04:33 2019 +0200
+
+				3rd commit
+
+			commit 66a48193cb63cc94a56c685a2213412f9fb9fc0d
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:03:28 2019 +0200
+
+				woop 2nd commit
+
+			commit 1954489341458109c658faea9d316cc1836fa391
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 14:55:11 2019 +0200
+
+				woop first commit
+
+	11. $ history > history.txt
+			creates a file called history.txt with my history as its content
+	12. $ commit -m "added history"
+	    $ git log	
+			commit f751c4eaf2a017b701faaf6463d8a2b252c759c0 (HEAD -> history)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:19:31 2019 +0200
+
+				added history
+
+			commit 732973d378967afc779ca7f1ad984ee9cf808537 (master, Branchie)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:04:33 2019 +0200
+
+				3rd commit
+
+			commit 66a48193cb63cc94a56c685a2213412f9fb9fc0d
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:03:28 2019 +0200
+
+				woop 2nd commit
+
+			commit 1954489341458109c658faea9d316cc1836fa391
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 14:55:11 2019 +0200
+
+				woop first commit
+	13. $ git checkout milkshake-flavours 
+	    $ git log
+			commit 5d5b0d20c940ac3f940a77eb238735c564bce94b (HEAD -> milkshake-flavours)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:05:48 2019 +0200
+
+				added initial flavours
+
+			commit 732973d378967afc779ca7f1ad984ee9cf808537 (master, Branchie)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:04:33 2019 +0200
+
+				3rd commit
+
+			commit 66a48193cb63cc94a56c685a2213412f9fb9fc0d
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:03:28 2019 +0200
+
+				woop 2nd commit
+
+			commit 1954489341458109c658faea9d316cc1836fa391
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 14:55:11 2019 +0200
+
+				woop first commit
+
+	14. $ commit -m "random readme changes"
+			[milkshake-flavours f1d3fc9] random readme changes
+			 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+	15. $ git checkout history
+		$ cat README.md
+			Some Cool Stuff Is Really In Here
+	16. $ rm README.md echo "booya" > README.md
+	17. $ git add README.md
+		$ git commit -m "rewrote readme"
+
+merging
+
+	1. $ git merge milkshake-flavours 
+			Updating 732973d..f1d3fc9
+			Fast-forward
+			README.md    | 2 +-
+			milkshake.md | 5 +++++
+			2 files changed, 6 insertions(+), 1 deletion(-)
+			create mode 100644 milkshake.md
+	2. $ ls
+			milkshake.md  README.md
+	   $ git log
+			commit f1d3fc9b4726267490dde5b1bba42448812791ec (HEAD -> master, milkshake-flavours)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:29:57 2019 +0200
+
+				random readme changes
+
+			commit 5d5b0d20c940ac3f940a77eb238735c564bce94b
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:05:48 2019 +0200
+
+				added initial flavours
+
+			commit 732973d378967afc779ca7f1ad984ee9cf808537 (Branchie)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:04:33 2019 +0200
+
+				3rd commit
+
+			commit 66a48193cb63cc94a56c685a2213412f9fb9fc0d
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:03:28 2019 +0200
+
+				woop 2nd commit
+
+			commit 1954489341458109c658faea9d316cc1836fa391
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 14:55:11 2019 +0200
+
+				woop first commit
+	3. $ git merge history
+	4.  $ ls 
+			history.txt  milkshake.md  README.md
+	   $ git log 
+	   		commit c2955db40a6ac35e128582976d2b5d28b1cf330f (HEAD -> master)
+			Merge: f1d3fc9 ce727ba
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:58:25 2019 +0200
+
+				added history
+
+			commit ce727ba4aabb804ed7ed330535c77525a7e30c20 (history)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:34:28 2019 +0200
+
+				rewrote readme
+
+			commit f1d3fc9b4726267490dde5b1bba42448812791ec (milkshake-flavours)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:29:57 2019 +0200
+
+				random readme changes
+
+			commit f751c4eaf2a017b701faaf6463d8a2b252c759c0
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:19:31 2019 +0200
+
+				added history
+
+			commit 5d5b0d20c940ac3f940a77eb238735c564bce94b
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:05:48 2019 +0200
+
+				added initial flavours
+
+			commit 732973d378967afc779ca7f1ad984ee9cf808537 (Branchie)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:04:33 2019 +0200
+
+				3rd commit
+ 
+	1. $ git checkout history
+	   $ git merge master
+	   $ git log
+	   		commit c2955db40a6ac35e128582976d2b5d28b1cf330f (HEAD -> history, origin/master, master)
+			Merge: f1d3fc9 ce727ba
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:58:25 2019 +0200
+
+				added history
+
+			commit ce727ba4aabb804ed7ed330535c77525a7e30c20
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:34:28 2019 +0200
+
+				rewrote readme
+
+			commit f1d3fc9b4726267490dde5b1bba42448812791ec (milkshake-flavours)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:29:57 2019 +0200
+
+				random readme changes
+
+			commit f751c4eaf2a017b701faaf6463d8a2b252c759c0
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:19:31 2019 +0200
+
+				added history
+
+			commit 5d5b0d20c940ac3f940a77eb238735c564bce94b
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:05:48 2019 +0200
+
+				added initial flavours
+
+			commit 732973d378967afc779ca7f1ad984ee9cf808537 (Branchie)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:04:33 2019 +0200
+
+				3rd commit
+
+			commit 66a48193cb63cc94a56c685a2213412f9fb9fc0d
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			:
+
+	2. $ git log
+			commit c2955db40a6ac35e128582976d2b5d28b1cf330f (HEAD -> master, origin/master, history)
+			Merge: f1d3fc9 ce727ba
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:58:25 2019 +0200
+
+				added history
+
+			commit ce727ba4aabb804ed7ed330535c77525a7e30c20
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:34:28 2019 +0200
+
+				rewrote readme
+
+			commit f1d3fc9b4726267490dde5b1bba42448812791ec (milkshake-flavours)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:29:57 2019 +0200
+
+				random readme changes
+
+			commit f751c4eaf2a017b701faaf6463d8a2b252c759c0
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:19:31 2019 +0200
+
+				added history
+
+			commit 5d5b0d20c940ac3f940a77eb238735c564bce94b
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:05:48 2019 +0200
+
+				added initial flavours
+
+			commit 732973d378967afc779ca7f1ad984ee9cf808537 (Branchie)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:04:33 2019 +0200
+
+				3rd commit
+
+			commit 66a48193cb63cc94a56c685a2213412f9fb9fc0d
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			:
+	2.	$ git log
+
+Pulling and remotes
+
+	5.	$ git clone https://github.com/Umuzi-org/tech-department.git
+			Cloning into 'tech-department'...
+			remote: Enumerating objects: 934, done.
+			remote: Counting objects: 100% (934/934), done.
+			remote: Compressing objects: 100% (528/528), done.
+			remote: Total 26250 (delta 467), reused 821 (delta 384), pack-reused 25316
+			Receiving objects: 100% (26250/26250), 26.31 MiB | 1.70 MiB/s, done.
+			Resolving deltas: 100% (13874/13874), done
+	6.	$ cd tech-department
+	7.	$ git branch
+			* master
+	8.	$ git branch -a
+			* master
+			remotes/origin/Big_O
+			remotes/origin/HEAD -> origin/master
+			remotes/origin/SQL_updates
+			remotes/origin/add-topic-dotenv
+			remotes/origin/coding_horrors_TDD_pitfalls
+			remotes/origin/create/agile_and_scrum_topic
+			remotes/origin/create/expressjs-exercise
+			remotes/origin/create/team_onboarding
+			remotes/origin/data_ethics_workshop
+			remotes/origin/data_science_namechange
+			remotes/origin/data_validation_python
+			remotes/origin/database_intro
+			remotes/origin/dataviz
+			remotes/origin/delete_this_branch
+			remotes/origin/dibwe_suggestions
+			remotes/origin/ds_unit_tests
+			remotes/origin/ethics-workshop
+			remotes/origin/feat/find
+			remotes/origin/feat/refactor-and-add-in-extra-resources
+			remotes/origin/find-command
+			remotes/origin/fix/data-specific_topics_to_projects
+			remotes/origin/fix/ds-formatting-and-links
+			remotes/origin/fix/ncit
+			remotes/origin/fix/password_checker_brief_update
+			remotes/origin/fix/python_specific_topic_to_project
+			remotes/origin/fix/remove_old_portfolio_website_brief
+			remotes/origin/fix/syllabus_links
+			remotes/origin/fixSyllabusIndex
+			remotes/origin/fix_data_sci_update
+			remotes/origin/fixed_data_ethics
+			remotes/origin/howToBeProfessionalWorkshop
+			remotes/origin/hugo_website
+			remotes/origin/intermediate-linux
+			remotes/origin/intro-to-RDBMS
+			remotes/origin/intro-to-presentation
+			remotes/origin/java
+			remotes/origin/linux
+			remotes/origin/linuxIntro
+			:
+	9.	$ git branch project/git-basic-exercises
+		$ git checkout project/git-basic-exercises
+			Switched to branch 'project/git-basic-exercises'
+	10. $ git remote -v
+			https://github.com/Umuzi-org/tech-department.git (fetch)
+			origin	https://github.com/Umuzi-org/tech-department.git (push)
+			
+Multiple Repos
+
+	1. $ git log
+			commit 21769f6b4852e45f0d87716ce347fee271d93d74 (HEAD -> project/git-basic-exercises, origin/master, origin/HEAD, master)
+			Author: Ryan O'Connell <ryan@oconnell.org.za>
+			Date:   Thu Oct 31 10:54:02 2019 +0200
+
+				deploy
+
+			commit ff1ebfc354a379ab5d91a001e20229a886a1c9aa
+			Merge: eb1695e9 fe89c8e8
+			Author: sheenarbw <sheena.oconnell@gmail.com>
+			Date:   Wed Oct 30 05:26:02 2019 +0200
+
+				Merge pull request #115 from Umuzi-org/update/clean_code_directory
+				
+				changed clean code directory and edited week by week syllabus
+
+			commit fe89c8e87eddfb3501bfdddf75111556e7a2de74 (origin/update/clean_code_directory)
+			Author: Ryan O'Connell <ryan@oconnell.org.za>
+			Date:   Tue Oct 29 12:10:53 2019 +0200
+
+				changed clean code directory and edited week by week syllabus
+
+			commit eb1695e931b47201fa80ed0f74ba499efa7c28d3
+			Merge: c93e4995 1578c83e
+			Author: sheenarbw <sheena.oconnell@gmail.com>
+			Date:   Sat Oct 26 08:13:47 2019 +0200
+
+				Merge pull request #89 from Umuzi-org/update/git_for_teamwork
+				
+				Updated git for teamwork and moved depreciated
+
+	2. $ cd ~/Documents/git-basic-exercises/
+				commit c2955db40a6ac35e128582976d2b5d28b1cf330f (HEAD -> master, origin/master, origin/history, history)
+				Merge: f1d3fc9 ce727ba
+				Author: Tlou Maponya <tlou.maponya@umuzi.org>
+				Date:   Thu Oct 31 14:58:25 2019 +0200
+
+					added history
+
+				commit ce727ba4aabb804ed7ed330535c77525a7e30c20
+				Author: Tlou Maponya <tlou.maponya@umuzi.org>
+				Date:   Thu Oct 31 14:34:28 2019 +0200
+
+					rewrote readme
+
+				commit f1d3fc9b4726267490dde5b1bba42448812791ec (origin/milkshake-flavours, milkshake-flavours)
+				Author: Tlou Maponya <tlou.maponya@umuzi.org>
+				Date:   Thu Oct 31 14:29:57 2019 +0200
+
+					random readme changes
+
+				commit f751c4eaf2a017b701faaf6463d8a2b252c759c0
+				Author: Tlou Maponya <tlou.maponya@umuzi.org>
+				Date:   Thu Oct 31 14:19:31 2019 +0200
+
+					added history
+
+				commit 5d5b0d20c940ac3f940a77eb238735c564bce94b
+				Author: Tlou Maponya <tlou.maponya@umuzi.org>
+				Date:   Thu Oct 31 14:05:48 2019 +0200
+
+					added initial flavours
+
+				commit 732973d378967afc779ca7f1ad984ee9cf808537 (origin/Branchie, Branchie)
+				Author: Tlou Maponya <tlou.maponya@umuzi.org>
+				Date:   Wed Oct 30 16:04:33 2019 +0200
+
+					3rd commit
+
+				commit 66a48193cb63cc94a56c685a2213412f9fb9fc0d
+				Author: Tlou Maponya <tlou.maponya@umuzi.org>
+				:
+
+	3. $ mkdir this-will-be-another-repo
+	4. $ cd this-will-be-another-repo
+	   $ git init
+			Initialized empty Git repository in /home/umuzi-tlou/Documents/this-will-be-another-repo/.git/
+	5. $ touch README.md
+	6. $ cd ~/Documents/git-basic-exercises/
+	   $ git log
+	   		commit c2955db40a6ac35e128582976d2b5d28b1cf330f (HEAD -> master, origin/master, origin/history, history)
+			Merge: f1d3fc9 ce727ba
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:58:25 2019 +0200
+
+				added history
+
+			commit ce727ba4aabb804ed7ed330535c77525a7e30c20
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:34:28 2019 +0200
+
+				rewrote readme
+
+			commit f1d3fc9b4726267490dde5b1bba42448812791ec (origin/milkshake-flavours, milkshake-flavours)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:29:57 2019 +0200
+
+				random readme changes
+
+			commit f751c4eaf2a017b701faaf6463d8a2b252c759c0
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:19:31 2019 +0200
+
+				added history
+
+			commit 5d5b0d20c940ac3f940a77eb238735c564bce94b
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Thu Oct 31 14:05:48 2019 +0200
+
+				added initial flavours
+
+			commit 732973d378967afc779ca7f1ad984ee9cf808537 (origin/Branchie, Branchie)
+			Author: Tlou Maponya <tlou.maponya@umuzi.org>
+			Date:   Wed Oct 30 16:04:33 2019 +0200
+
+				3rd commit
+
+gitignore
+
+	1.  $ touch ignore-me.db
+	2.  $ git status
+	3.  $ nano .gitignore
+	5.	$ git status
+			On branch master
+			Your branch is up to date with 'origin/master'.
+
+			Changes to be committed:
+			(use "git reset HEAD <file>..." to unstage)
+
+				new file:   .gitignore
+				new file:   README.md.save
+	6.  $ mkdir large-directory-that-should-be-local-only
+	8.  $ git status
+			On branch master
+			Your branch is up to date with 'origin/master'.
+
+			Changes to be committed:
+			(use "git reset HEAD <file>..." to unstage)
+
+				new file:   .gitignore
+				new file:   README.md.save
+	9.  $ git status 	
+			On branch master
+			Your branch is up to date with 'origin/master'.
+
+			Changes to be committed:
+			(use "git reset HEAD <file>..." to unstage)
+
+				new file:   .gitignore
+				new file:   README.md.save
+
+			Changes not staged for commit:
+			(use "git add <file>..." to update what will be committed)
+			(use "git checkout -- <file>..." to discard changes in working directory)
+
+				modified:   .gitignore
+	10. $ git status
+			On branch master
+			Your branch is ahead of 'origin/master' by 1 commit.
+			(use "git push" to publish your local commits)
+
+			nothing to commit, working tree clean
+
+
+
+
+						
+
+				
+
+
+
+
+
+
+
+
+
+
+
